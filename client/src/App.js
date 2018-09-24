@@ -10,19 +10,31 @@ import API from "./utils/API";
 
 class App extends Component {
   state = {
-    result: {},
+    result: [],
     search: ""
   };
 
   componentDidMount() {
-    this.searchNews("Puppies");
+    this.searchNews("puppies");
+
   }
 
   searchNews = query => {
+    let result = [];
     API.search(query)
       .then(res => {
-        this.setState({ result: res.data });
-        console.log(this.state)
+        const dataInfo = res.data.response.docs;
+          dataInfo.forEach(element => {
+            let articleInfo = {
+              Headline: element.headline.main,
+              Link: element.web_url,
+              Date: element.pub_date,
+              Snippet: element.snippet
+            }
+            result.push(articleInfo);
+            this.setState({ result: result});
+            console.log(this.state)
+          });          
       })
       .catch(err => console.log(err));
   };
