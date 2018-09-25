@@ -46,15 +46,16 @@ class App extends Component {
         <Navbar />
         <Search />
         <Results>
-          {this.state.result.Title ? (
+          {this.state.result.map(result =>result.Headline ? (
             <ArticleDetails
-              title={this.state.result.Title}
-              year={this.state.result.Year}
-              released={this.state.result.Released}
+              title={result.Headline}
+              date={result.Date}
+              link={result.Link}
+              snippet={result.Snippet}
             />
           ) : (
               <h3>No Results to Display</h3>
-            )}
+            ))}
         </Results>
         <Saved />
       </div>
