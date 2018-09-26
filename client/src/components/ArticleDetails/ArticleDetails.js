@@ -7,6 +7,17 @@ const ArticleDetails = props => (
     <p id="articleSnippet">Snippet: {props.snippet}</p>
     <p id="articleDate">Date: {props.date}</p>
     <a id="articleLink" href={props.link}>Link</a>
+    <button
+            type="submit"
+            className="btn btn-primary"
+            onClick={()=>{props.saveArticle(props.keyId)}}>Save Me!</button>
+            {/* value={[
+              title= props.title,
+              snippet= props.snippet,
+              date= props.date,
+              url= props.link,
+              saved= true
+            ]} */}
     <hr/>
     <br/>
   </div>

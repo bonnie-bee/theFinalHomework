@@ -15,8 +15,7 @@ class App extends Component {
   };
 
   componentDidMount() {
-    this.searchNews("pierogies");
-
+    this.searchNews("ranch dressing");
   }
 
   handleInputChange = event => {
@@ -32,18 +31,38 @@ class App extends Component {
     this.searchNews(this.state.search);
   };
 
+  loadArticles = () => {
+    API.getArticles()
+  };
+
+  saveArticle = id => {
+    const results = this.state.result
+      console.log(results[id])
+      if (results[id]) {
+        API.saveArticle({
+          title: results[id].Headline,
+          date: results[id].Date,
+          snippet: results[id].Snippet,
+          url: results[id].Link,
+          saved: true
+        })
+          .then(res => this.loadArticles())
+          .catch(err => console.log(err));
+      }
+  };
 
   searchNews = query => {
     let result = [];
     API.search(query)
       .then(res => {
         const dataInfo = res.data.response.docs;
-        dataInfo.forEach(element => {
+        dataInfo.forEach((element, i) => {
           let articleInfo = {
             Headline: element.headline.main,
             Link: element.web_url,
             Date: element.pub_date,
-            Snippet: element.snippet
+            Snippet: element.snippet,
+            key: i
           }
           result.push(articleInfo);
           this.setState({ result: result });
@@ -64,18 +83,32 @@ class App extends Component {
           handleFormSubmit={this.handleFormSubmit}
         />
         <Results>
-          {this.state.result.map(result => result.Headline ? (
+          {this.state.result.map((result,i) => result.Headline ? (
             <ArticleDetails
               title={result.Headline}
               date={result.Date}
               link={result.Link}
               snippet={result.Snippet}
+              keyId={i}
+              key={i}
+              saveArticle={this.saveArticle}
             />
           ) : (
               <h3>No Results to Display</h3>
             ))}
         </Results>
-        <Saved />
+        <Saved> {this.state.result.map(result => result.Saved ? (
+          <ArticleDetails
+            title={result.Headline}
+            date={result.Date}
+            link={result.Link}
+            snippet={result.Snippet}
+            notes={result.Notes}
+          />
+        ) : (
+            <h3>No Results to Display</h3>
+          ))}
+        </Saved>
       </div>
     );
   }
