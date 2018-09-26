@@ -15,26 +15,40 @@ class App extends Component {
   };
 
   componentDidMount() {
-    this.searchNews("puppies");
+    this.searchNews("pierogies");
 
   }
+
+  handleInputChange = event => {
+    const value = event.target.value;
+    const name = event.target.name;
+    this.setState({
+      [name]: value
+    });
+  };
+
+  handleFormSubmit = event => {
+    event.preventDefault();
+    this.searchNews(this.state.search);
+  };
+
 
   searchNews = query => {
     let result = [];
     API.search(query)
       .then(res => {
         const dataInfo = res.data.response.docs;
-          dataInfo.forEach(element => {
-            let articleInfo = {
-              Headline: element.headline.main,
-              Link: element.web_url,
-              Date: element.pub_date,
-              Snippet: element.snippet
-            }
-            result.push(articleInfo);
-            this.setState({ result: result});
-            console.log(this.state)
-          });          
+        dataInfo.forEach(element => {
+          let articleInfo = {
+            Headline: element.headline.main,
+            Link: element.web_url,
+            Date: element.pub_date,
+            Snippet: element.snippet
+          }
+          result.push(articleInfo);
+          this.setState({ result: result });
+          console.log(this.state)
+        });
       })
       .catch(err => console.log(err));
   };
@@ -44,9 +58,13 @@ class App extends Component {
     return (
       <div>
         <Navbar />
-        <Search />
+        <Search
+          value={this.state.search}
+          handleInputChange={this.handleInputChange}
+          handleFormSubmit={this.handleFormSubmit}
+        />
         <Results>
-          {this.state.result.map(result =>result.Headline ? (
+          {this.state.result.map(result => result.Headline ? (
             <ArticleDetails
               title={result.Headline}
               date={result.Date}

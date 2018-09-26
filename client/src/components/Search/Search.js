@@ -1,18 +1,25 @@
 import React from "react";
 import "./Search.css";
 
-const Search = () => (
+const Search = (props) => (
     <form>
   <div className="form-group">
-    <label >Email address</label>
-    <input type="email" className="form-control" id="search-term" aria-describedby="emailHelp" placeholder="Enter email" />
-    <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
+    <label >Search Articles</label>
+    <input 
+      type="text" 
+      className="form-control" 
+      id="searchTerm" 
+      placeholder="ranch dressing"
+      name="search"
+      value={props.value}
+      onChange={props.handleInputChange}
+
+      />
   </div>
-  <div className="form-group">
-    <label>Password</label>
-    <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" />
-  </div>
-  <button type="submit" className="btn btn-primary">Submit</button>
+  <button 
+  type="submit" 
+  className="btn btn-primary" 
+  onClick={props.handleFormSubmit}>Submit</button>
 </form>
 )
 
