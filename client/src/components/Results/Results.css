@@ -1,5 +1,9 @@
 .results{
+    position: relative;
     height: 400px;
     border: gold thin dotted;
     overflow: scroll;
+    margin-top: 5%;
+    text-align: center;
 }
+

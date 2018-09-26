@@ -1,5 +1,5 @@
 import React from "react";
-import "./ArticleDetails.css"
+import "./SavedArticles.css"
 
 const ArticleDetails = props => (
   <div className="text-center articleBits">
@@ -7,15 +7,8 @@ const ArticleDetails = props => (
     <p id="articleSnippet">Snippet: {props.snippet}</p>
     <p id="articleDate">Date: {props.date}</p>
     <a id="articleLink" href={props.link}>Link</a>
-    <br />
-    <button
-      type="submit"
-      className="btn btn-primary"
-      onClick={() => { props.saveArticle(props.keyId) }}>
-      Save Me!
-    </button>
-    <hr />
-    <br />
+    <hr/>
+    <br/>
   </div>
 );
 

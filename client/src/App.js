@@ -5,17 +5,20 @@ import Search from "./components/Search";
 import Results from "./components/Results";
 import Saved from "./components/Saved";
 import ArticleDetails from "./components/ArticleDetails";
+import SavedArticles from "./components/SavedArticles";
 import API from "./utils/API";
 
 
 class App extends Component {
   state = {
     result: [],
+    saved: [],
     search: ""
   };
 
   componentDidMount() {
     this.searchNews("ranch dressing");
+    this.loadArticles();
   }
 
   handleInputChange = event => {
@@ -33,6 +36,8 @@ class App extends Component {
 
   loadArticles = () => {
     API.getArticles()
+    .then(res=> this.setState({ saved: res.data}))
+    .catch(err => console.log(err))
   };
 
   saveArticle = id => {
@@ -97,13 +102,13 @@ class App extends Component {
               <h3>No Results to Display</h3>
             ))}
         </Results>
-        <Saved> {this.state.result.map(result => result.Saved ? (
-          <ArticleDetails
-            title={result.Headline}
-            date={result.Date}
-            link={result.Link}
-            snippet={result.Snippet}
-            notes={result.Notes}
+        <Saved> {this.state.saved.map(result => result.saved ? (
+          <SavedArticles
+            title={result.title}
+            date={result.date}
+            link={result.url}
+            snippet={result.snippet}
+            // notes={result.Notes}
           />
         ) : (
             <h3>No Results to Display</h3>

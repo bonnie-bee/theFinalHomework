@@ -1,4 +1,8 @@
 .saved{
+    position: relative;
     height: 400px;
-    border: navy thin dotted
+    border: navy thin dotted;
+    overflow: scroll;
+    margin-top: 5%;
+    text-align: center;
 }
