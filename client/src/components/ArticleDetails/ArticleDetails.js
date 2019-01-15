@@ -14,7 +14,7 @@ const ArticleDetails = props => (
       onClick={() => { props.saveArticle(props.keyId) }}>
       Save Me!
     </button>
-    <hr />
+    <hr /> 
     <br />
   </div>
 );
