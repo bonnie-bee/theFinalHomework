@@ -11,6 +11,7 @@
     "axios": "^0.18.0",
     "event-stream": "^3.3.4",
     "merge": "^1.2.1",
+    "mime": "^1.4.1",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-scripts": "1.0.14",
